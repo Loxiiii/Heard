@@ -23,6 +23,7 @@ let login = () => {
 				emailRedirectTo: 'http://localhost:3000/auth/callback',
 			},
 		});
+		console.log('after clicking login');
 	};
 
 	let [email, setEmail] = useState('');
@@ -114,7 +115,7 @@ let login = () => {
 										className='shadow-lg w-full bg-blouse hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded'
 										type='button'
 										onClick={() => {
-											handleSubmit();
+											handleSignIn();
 										}}
 									>
 										Log in

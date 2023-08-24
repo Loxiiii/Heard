@@ -6,13 +6,26 @@ import Link from 'next/link';
 import guitarSvg from '../../media/image.svg';
 import { useState, useEffect } from 'react';
 import router from 'next/router';
+import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 // import supabase from '../helpers/DB/createClient';
 
 let signup = () => {
+	const supabase = createClientComponentClient();
 	let [name, setName] = useState('');
 	let [email, setEmail] = useState('');
 	let [password, setPassword] = useState('');
 	let [confirm, setConfirm] = useState('');
+
+	const handleSignUp = async () => {
+		await supabase.auth.signUp({
+			email: email,
+			password: password,
+			options: {
+				emailRedirectTo: 'http://localhost:3000/auth/callback',
+			},
+		});
+		console.log('after clicking login');
+	};
 
 	let handleNameChange = (e) => {
 		setName(e.target.value);
@@ -30,49 +43,49 @@ let signup = () => {
 		setConfirm(e.target.value);
 	};
 
-	let handleSubmit = async () => {
-		console.log({
-			name,
-			email,
-			password,
-			confirm,
-		});
-		const { data, error } = await supabase.auth.signUp({
-			email: email,
-			password: password,
-			options: {
-				data: {
-					name: name,
-				},
-			},
-		});
+	// let handleSubmit = async () => {
+	// 	console.log({
+	// 		name,
+	// 		email,
+	// 		password,
+	// 		confirm,
+	// 	});
+	// 	const { data, error } = await supabase.auth.signUp({
+	// 		email: email,
+	// 		password: password,
+	// 		options: {
+	// 			data: {
+	// 				name: name,
+	// 			},
+	// 		},
+	// 	});
 
-		// supabase.auth.getUser().then(async (user) => {
-		// 	console.log('this is the user: ', user);
+	// 	// supabase.auth.getUser().then(async (user) => {
+	// 	// 	console.log('this is the user: ', user);
 
-		// 	const { data, error } = await supabase
-		// 		.from('profiles')
-		// 		.insert([
-		// 			{
-		// 				first_name: name,
-		// 				last_name: 'otherValue',
-		// 				user_id: user,
-		// 			},
-		// 		])
-		// 		.select();
-		// });
-		if (error) {
-			console.log(error);
-			// Object {
-			//  "message": "Unable to validate email address: invalid format",
-			//  "status": 422,
-			// }
-			return;
-		} else {
-			console.log(user);
-			router.push('/feedv2');
-		}
-	};
+	// 	// 	const { data, error } = await supabase
+	// 	// 		.from('profiles')
+	// 	// 		.insert([
+	// 	// 			{
+	// 	// 				first_name: name,
+	// 	// 				last_name: 'otherValue',
+	// 	// 				user_id: user,
+	// 	// 			},
+	// 	// 		])
+	// 	// 		.select();
+	// 	// });
+	// 	if (error) {
+	// 		console.log(error);
+	// 		// Object {
+	// 		//  "message": "Unable to validate email address: invalid format",
+	// 		//  "status": 422,
+	// 		// }
+	// 		return;
+	// 	} else {
+	// 		console.log(user);
+	// 		router.push('/feedv2');
+	// 	}
+	// };
 
 	return (
 		<Layout>
@@ -151,7 +164,7 @@ let signup = () => {
 									className='shadow-lg mt-10 w-3/4 self-center bg-blouse hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded'
 									type='button'
 									onClick={() => {
-										handleSubmit();
+										handleSignUp();
 									}}
 								>
 									Sign up

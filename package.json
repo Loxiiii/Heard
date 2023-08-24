@@ -24,6 +24,7 @@
   "devDependencies": {
     "@types/node": "20.5.4",
     "@types/react": "18.2.21",
+    "encoding": "^0.1.13",
     "eslint": "^8.47.0",
     "eslint-config-standard": "^17.1.0",
     "eslint-plugin-import": "^2.28.1",
