@@ -6,9 +6,25 @@ import Link from 'next/link';
 import guitarSvg from '../../media/image.svg';
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
+import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
+// import { cookies } from 'next/headers';
 // import supabase from '../helpers/DB/createClient';
 
 let login = () => {
+	// const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+	// const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+	const supabase = createClientComponentClient();
+
+	const handleSignIn = async () => {
+		await supabase.auth.signInWithPassword({
+			email: email,
+			password: password,
+			options: {
+				emailRedirectTo: 'http://localhost:3000/auth/callback',
+			},
+		});
+	};
+
 	let [email, setEmail] = useState('');
 	let [password, setPassword] = useState('');
 
@@ -22,26 +38,26 @@ let login = () => {
 		setPassword(e.target.value);
 	};
 
-	let handleSubmit = async () => {
-		console.log({
-			email,
-			password,
-		});
-		const { data, error } = await supabase.auth.signInWithPassword({
-			email: email,
-			password: password,
-		});
+	// let handleSubmit = async () => {
+	// 	console.log({
+	// 		email,
+	// 		password,
+	// 	});
+	// 	const { data, error } = await supabase.auth.signInWithPassword({
+	// 		email: email,
+	// 		password: password,
+	// 	});
 
-		if (error) {
-			console.log(error);
-		} else {
-			console.log('signed in succesfully');
-			supabase.auth.getUser().then((user) => {
-				console.log(user.data);
-				router.push('/feed');
-			});
-		}
-	};
+	// 	if (error) {
+	// 		console.log(error);
+	// 	} else {
+	// 		console.log('signed in succesfully');
+	// 		supabase.auth.getUser().then((user) => {
+	// 			console.log(user.data);
+	// 			router.push('/feed');
+	// 		});
+	// 	}
+	// };
 
 	return (
 		<Layout>
