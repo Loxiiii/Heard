@@ -21,10 +21,9 @@ let signup = () => {
 			email: email,
 			password: password,
 			options: {
-				emailRedirectTo: 'http://localhost:3000/auth/callback',
+				emailRedirectTo: `${location.origin}/auth/callback`,
 			},
 		});
-		console.log('after clicking login');
 	};
 
 	let handleNameChange = (e) => {
@@ -98,7 +97,7 @@ let signup = () => {
 						<div className='font-extrabold text-white/60 mt-10 text-3xl'>
 							Sign up
 						</div>
-						<form className='mt-5 h-fit  border-white/60'>
+						<form className='mt-5 h-fit  border-white/60' autocomplete='off'>
 							<label
 								className='block uppercase tracking-wide text-white/60 text-xs font-bold mb-2'
 								for='grid-first-name'
@@ -110,6 +109,7 @@ let signup = () => {
 								id='grid-last-name'
 								type='text'
 								placeholder='Doe'
+								autocomplete='off'
 								onChange={(e) => {
 									handleNameChange(e);
 								}}
@@ -125,6 +125,7 @@ let signup = () => {
 								id='grid-last-name'
 								type='text'
 								placeholder='Doe'
+								autocomplete='off'
 								onChange={(e) => {
 									handleEmailChange(e);
 								}}
@@ -140,6 +141,7 @@ let signup = () => {
 								id='grid-last-name'
 								type='password'
 								placeholder='*********'
+								autocomplete='off'
 								onChange={(e) => {
 									handlePasswordChange(e);
 								}}
@@ -155,6 +157,7 @@ let signup = () => {
 								id='grid-last-name'
 								type='password'
 								placeholder='*********'
+								autocomplete='off'
 								onChange={(e) => {
 									handleConfirmChange(e);
 								}}
