@@ -1,3 +1,5 @@
+'use client';
+
 import Waves from '../media/dark-g40b103a13_1280.jpg';
 import ProfilePic from '../media/close-up-portrait-young-man-isolated-black-studio-background.jpg';
 import Image from 'next/image';

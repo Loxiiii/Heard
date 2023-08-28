@@ -22,7 +22,7 @@ export default function SignupForm() {
 			password: password,
 			options: {
 				// emailRedirectTo: `${location.origin}/auth/callback`,
-				emailRedirectTo: `${location.origin}/feed`,
+				emailRedirectTo: `http://localhost:3000/feed`,
 			},
 		});
 
