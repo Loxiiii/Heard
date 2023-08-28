@@ -5,6 +5,7 @@ import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import { useState, useEffect } from 'react';
 import router from 'next/router';
 import { redirect } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 
 export default function SignupForm() {
 	const supabase = createClientComponentClient();
@@ -12,6 +13,8 @@ export default function SignupForm() {
 	let [email, setEmail] = useState('');
 	let [password, setPassword] = useState('');
 	let [confirm, setConfirm] = useState('');
+
+	const router = useRouter();
 
 	const handleSignUp = async () => {
 		await supabase.auth.signUp({
@@ -23,7 +26,8 @@ export default function SignupForm() {
 			},
 		});
 
-		redirect('/checkEmail');
+		// redirect('http://localhost:3000/checkEmail');
+		router.push('/checkEmail');
 	};
 
 	let handleNameChange = (e) => {
